@@ -16,7 +16,7 @@ jobs:
         with:
           submodules: recursive
 
-      - name: ccache
+      - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1
         with:
           key: ${{ matrix.os }}-${{ runner.arch }}
@@ -40,12 +40,56 @@ jobs:
         with:
           cmake-version: '3.22.x'
 
-      - name: Run CMake
+      - name: Build
         run: |
           export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
           mkdir -p build install
           cmake -B build -S . -DCMAKE_INSTALL_PREFIX=install
           make -C build -j$(nproc) install
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: portable-binary.${{ github.sha }}.${{ matrix.os }}-${{ runner.arch }}
+          path: install/**
+
+  build-windows:
+    name: Build Windows
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022]
+        qt: [5.15.2]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: recursive
+
+      - name: Cache Qt
+        id: cache-qt
+        uses: actions/cache@v1  # not v2! TODO: why though?
+        with:
+          path: ../Qt
+          key: ${{ matrix.os }}-QtCache
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: ${{ matrix.qt }}
+          arch: win64_mingw81
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.12
+        with:
+          cmake-version: '3.22.x'
+
+      - name: Build
+        run: |
+          mkdir -f build
+          mkdir -f install
+          cmake -B build -S . -DCMAKE_INSTALL_PREFIX=install
+          make -C build -j2 install # nproc on Windows???
 
       - uses: actions/upload-artifact@v2
         with:
