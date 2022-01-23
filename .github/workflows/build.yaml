@@ -79,6 +79,11 @@ jobs:
           arch: win64_mingw81
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
 
+      - name: Install ZLib
+        run: |
+          Invoke-WebRequest -Uri "https://sourceforge.net/projects/gnuwin32/files/zlib/1.2.3/zlib-1.2.3.exe" -OutFile "C:\\Temp\\zlib-1.2.3.exe"
+          C:\\Temp\\zlib-1.2.3.exe /VERYSILENT NORESTART
+
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v1.12
         with:
