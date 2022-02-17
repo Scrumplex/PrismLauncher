@@ -109,14 +109,6 @@ VersionFilePtr OneSixVersionFormat::versionFileFromJson(const QJsonDocument &doc
         }
     }
 
-    if (root.contains("PMC-jvmArgs"))
-    {
-        for (auto arg : requireArray(root.value("PMC-jvmArgs")))
-        {
-            out->addnJvmArguments.append(requireString(arg));
-        }
-    }
-
 
     if (root.contains("jarMods"))
     {
@@ -185,19 +177,33 @@ VersionFilePtr OneSixVersionFormat::versionFileFromJson(const QJsonDocument &doc
         readLibs("mavenFiles", out->mavenFiles);
     }
 
-    if(root.contains("PMC-agents")) {
-        for (auto agentVal : requireArray(root.value("PMC-agents")))
+    if (root.contains("polymc"))
+    {
+        QJsonObject polymc = requireObject(root.value("polymc"));
+
+        if (polymc.contains("jvmArgs"))
         {
-            QJsonObject agentObj = requireObject(agentVal);
-            auto lib = libraryFromJson(*out, agentObj, filename);
-            QString arg = "";
-            if (agentObj.contains("argument"))
+            for (auto arg : requireArray(polymc.value("jvmArgs")))
             {
-                readString(agentObj, "argument", arg);
+                out->addnJvmArguments.append(requireString(arg));
             }
-            AgentPtr agent(new Agent(lib, arg));
-            out->agents.append(agent);
         }
+
+        if(polymc.contains("agents")) {
+            for (auto agentVal : requireArray(polymc.value("agents")))
+            {
+                QJsonObject agentObj = requireObject(agentVal);
+                auto lib = libraryFromJson(*out, agentObj, filename);
+                QString arg = "";
+                if (agentObj.contains("argument"))
+                {
+                    readString(agentObj, "argument", arg);
+                }
+                AgentPtr agent(new Agent(lib, arg));
+                out->agents.append(agent);
+            }
+        }
+
     }
 
     // if we have mainJar, just use it
