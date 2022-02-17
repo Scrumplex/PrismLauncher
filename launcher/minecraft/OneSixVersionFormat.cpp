@@ -109,9 +109,9 @@ VersionFilePtr OneSixVersionFormat::versionFileFromJson(const QJsonDocument &doc
         }
     }
 
-    if (root.contains("+jvmArgs"))
+    if (root.contains("PMC-jvmArgs"))
     {
-        for (auto arg : requireArray(root.value("+jvmArgs")))
+        for (auto arg : requireArray(root.value("PMC-jvmArgs")))
         {
             out->addnJvmArguments.append(requireString(arg));
         }
@@ -185,8 +185,8 @@ VersionFilePtr OneSixVersionFormat::versionFileFromJson(const QJsonDocument &doc
         readLibs("mavenFiles", out->mavenFiles);
     }
 
-    if(root.contains("agents")) {
-        for (auto agentVal : requireArray(root.value("agents")))
+    if(root.contains("PMC-agents")) {
+        for (auto agentVal : requireArray(root.value("PMC-agents")))
         {
             QJsonObject agentObj = requireObject(agentVal);
             auto lib = libraryFromJson(*out, agentObj, filename);
