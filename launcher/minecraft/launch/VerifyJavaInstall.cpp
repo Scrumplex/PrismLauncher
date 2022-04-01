@@ -35,9 +35,11 @@
 
 #include "VerifyJavaInstall.h"
 
+#include "Application.h"
 #include "java/JavaVersion.h"
 #include "minecraft/PackProfile.h"
 #include "minecraft/MinecraftInstance.h"
+#include <QMessageBox>
 
 void VerifyJavaInstall::executeTask() {
     auto instance = std::dynamic_pointer_cast<MinecraftInstance>(m_parent->instance());
@@ -47,10 +49,9 @@ void VerifyJavaInstall::executeTask() {
     auto ignoreCompatibility = settings->get("IgnoreJavaCompatibility").toBool();
 
     auto compatibleMajors = packProfile->getProfile()->getCompatibleJavaMajors();
+    auto currentMajor = JavaVersion(storedVersion).major();
 
-    JavaVersion javaVersion(storedVersion);
-
-    if (compatibleMajors.isEmpty() || compatibleMajors.contains(javaVersion.major()))
+    if (compatibleMajors.isEmpty() || compatibleMajors.contains(currentMajor))
     {
         emitSucceeded();
         return;
@@ -64,12 +65,39 @@ void VerifyJavaInstall::executeTask() {
         return;
     }
 
-    emit logLine(tr("Instance not compatible with Java major version %1.\n"
-                    "Switch the Java version of this instance to one of the following:").arg(javaVersion.major()),
+    emit logLine(tr("This instance is not compatible with Java version %1.\n"
+                    "Please switch to one of the following Java versions for this instance:").arg(currentMajor),
                  MessageLevel::Error);
-    for (auto major: compatibleMajors)
+    for (auto major : compatibleMajors)
     {
-        emit logLine(tr("Java %1").arg(major), MessageLevel::Error);
+        emit logLine(tr("Java version %1").arg(major), MessageLevel::Error);
     }
+
+    // Emit failed before showing messagebox, to "unlock" UI
     emitFailed(QString("Incompatible Java major version"));
+
+    QMessageBox warning;
+    if (compatibleMajors.size() == 1)
+    {
+        warning.setText(tr("This instance is not compatible with <b>Java version %1</b>.<br>"
+                           "Please switch to <b>Java version %2</b> for this instance.").arg(currentMajor).arg(compatibleMajors[0]));
+    }
+    else
+    {
+        QStringList foo;
+        for (auto major : compatibleMajors)
+        {
+            foo.append(QString::number(major));
+        }
+        auto bar = foo.join(", ");
+        warning.setText(tr("This instance is not compatible with <b>Java version %1</b>.<br>"
+                           "Please switch to one of the following Java versions for this instance: <b>%2</b>").arg(currentMajor).arg(bar));
+    }
+    warning.setInformativeText(tr("Do you want to open the instance's settings to change this?"));
+    warning.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    int result = warning.exec();
+    if (result == QMessageBox::Yes)
+    {
+        APPLICATION->showInstanceWindow(instance, "settings");
+    }
 }
