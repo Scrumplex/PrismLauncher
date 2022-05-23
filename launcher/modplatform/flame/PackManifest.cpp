@@ -65,10 +65,17 @@ bool Flame::File::parseFromObject(const QJsonObject& obj)
 {
     fileName = Json::requireString(obj, "fileName");
 
-    QString rawUrl = Json::requireString(obj, "downloadUrl");
-    url = QUrl(rawUrl, QUrl::TolerantMode);
-    if (!url.isValid()) {
-        throw JSONValidationError(QString("Invalid URL: %1").arg(rawUrl));
+    QString rawUrl = Json::ensureString(obj, "downloadUrl");
+    if (!rawUrl.isEmpty())
+    {
+        url = QUrl(rawUrl, QUrl::TolerantMode);
+        if (!url.isValid()) {
+            throw JSONValidationError(QString("Invalid URL: %1").arg(rawUrl));
+        }
+    }
+    else
+    {
+        blocked = true;
     }
     // This is a piece of a Flame project JSON pulled out into the file metadata (here) for convenience
     // It is also optional
@@ -83,5 +90,12 @@ bool Flame::File::parseFromObject(const QJsonObject& obj)
     }
 
     resolved = true;
+    return true;
+}
+
+bool Flame::Mod::parseFromObject(const QJsonObject& obj) {
+    projectId = Json::requireInteger(obj, "id");
+    name = Json::requireString(obj, "name");
+    slug = Json::requireString(obj, "slug");
     return true;
 }

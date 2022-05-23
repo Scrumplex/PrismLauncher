@@ -386,7 +386,7 @@ void InstanceImportTask::processFlame()
     {
         auto results = m_modIdResolver->getResults();
         m_filesNetJob = new NetJob(tr("Mod download"), APPLICATION->network());
-        QVector<Flame::File> failedFiles;
+        QVector<Flame::File> blockedFiles;
         for(const auto& result: results.files.values())
         {
             QString filename = result.fileName;
@@ -408,14 +408,19 @@ void InstanceImportTask::processFlame()
                 case Flame::File::Type::SingleFile:
                 case Flame::File::Type::Mod:
                 {
-                    qDebug() << "Will download" << result.url << "to" << path;
-                    auto dl = Net::Download::makeFile(result.url, path);
-                    //early signal to catch failures
-                    connect(dl.get(), &Net::Download::failed, this,[&result, &failedFiles](){
-                        //Broken file
-                        failedFiles.push_back(result);
-                    });
-                    m_filesNetJob->addNetAction(dl);
+                    if (result.blocked)
+                    {
+                        auto indirectDownloadLink = QString("https://www.curseforge.com/minecraft/mc-mods/%1/download/%2").arg(result.projectSlug).arg(result.fileId);
+                        qDebug() << result.fileName << "needs manual download";
+                        qDebug() << "Use following URL" << indirectDownloadLink;
+                        blockedFiles.push_back(result);
+                    }
+                    else
+                    {
+                        qDebug() << "Will download" << result.url << "to" << path;
+                        auto dl = Net::Download::makeFile(result.url, path);
+                        m_filesNetJob->addNetAction(dl);
+                    }
                     break;
                 }
                 case Flame::File::Type::Modpack:
@@ -431,13 +436,14 @@ void InstanceImportTask::processFlame()
         m_modIdResolver.reset();
         connect(m_filesNetJob.get(), &NetJob::succeeded, this, [&]()
         {
+            //TODO use failedFiles to display a manual download message
+            //auto indirectDownloadLink = QString("https://www.curseforge.com/minecraft/mc-mods/%1/download/%2").arg(result.projectSlug).arg(result.fileId);
             m_filesNetJob.reset();
             emitSucceeded();
         }
         );
         connect(m_filesNetJob.get(), &NetJob::failed, [&](QString reason)
         {
-            //TODO use failedFiles to display a manual download message
             m_filesNetJob.reset();
             emitFailed(reason);
         });

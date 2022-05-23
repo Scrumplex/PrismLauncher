@@ -8,6 +8,16 @@
 
 namespace Flame
 {
+struct Mod
+{
+    // NOTE: throws JSONValidationError
+    bool parseFromObject(const QJsonObject& object);
+
+    int projectId = 0;
+    QString name;
+    QString slug;
+};
+
 struct File
 {
     // NOTE: throws JSONValidationError
@@ -19,6 +29,8 @@ struct File
     bool required = true;
 
     // our
+    QString projectSlug;
+    bool blocked = false;
     bool resolved = false;
     QString fileName;
     QUrl url;

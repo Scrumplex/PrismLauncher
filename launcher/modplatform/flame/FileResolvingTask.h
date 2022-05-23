@@ -27,7 +27,8 @@ protected slots:
 private: /* data */
     shared_qobject_ptr<QNetworkAccessManager> m_network;
     Flame::Manifest m_toProcess;
-    std::shared_ptr<QByteArray> result;
+    std::shared_ptr<QByteArray> modsResult;
+    std::shared_ptr<QByteArray> filesResult;
     NetJob::Ptr m_dljob;
 };
 }
