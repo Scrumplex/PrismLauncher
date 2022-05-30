@@ -863,6 +863,8 @@ SET(LAUNCHER_SOURCES
     ui/dialogs/ModDownloadDialog.h
     ui/dialogs/ScrollMessageBox.cpp
     ui/dialogs/ScrollMessageBox.h
+    ui/dialogs/ChooseProviderDialog.h
+    ui/dialogs/ChooseProviderDialog.cpp
 
     # GUI - widgets
     ui/widgets/Common.cpp
@@ -967,6 +969,7 @@ qt5_wrap_ui(LAUNCHER_UI
     ui/dialogs/EditAccountDialog.ui
     ui/dialogs/ReviewMessageBox.ui
     ui/dialogs/ScrollMessageBox.ui
+    ui/dialogs/ChooseProviderDialog.ui
 )
 
 qt5_add_resources(LAUNCHER_RESOURCES
