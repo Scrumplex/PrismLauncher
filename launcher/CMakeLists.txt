@@ -422,6 +422,8 @@ set(TASKS_SOURCES
     tasks/ConcurrentTask.cpp
     tasks/SequentialTask.h
     tasks/SequentialTask.cpp
+    tasks/MultipleOptionsTask.h
+    tasks/MultipleOptionsTask.cpp
 )
 
 add_unit_test(Task
