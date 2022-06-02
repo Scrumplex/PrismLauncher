@@ -420,6 +420,8 @@ set(TASKS_SOURCES
     tasks/Task.cpp
     tasks/SequentialTask.h
     tasks/SequentialTask.cpp
+    tasks/MultipleOptionsTask.h
+    tasks/MultipleOptionsTask.cpp
 )
 
 add_unit_test(Task
