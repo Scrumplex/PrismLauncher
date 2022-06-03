@@ -513,6 +513,9 @@ set(API_SOURCES
 
     modplatform/ModAPI.h
 
+    modplatform/EnsureMetadataTask.h
+    modplatform/EnsureMetadataTask.cpp
+
     modplatform/flame/FlameAPI.h
     modplatform/flame/FlameAPI.cpp
     modplatform/modrinth/ModrinthAPI.h
