@@ -514,6 +514,7 @@ set(API_SOURCES
     modplatform/ModAPI.h
 
     modplatform/flame/FlameAPI.h
+    modplatform/flame/FlameAPI.cpp
     modplatform/modrinth/ModrinthAPI.h
     modplatform/modrinth/ModrinthAPI.cpp
     
