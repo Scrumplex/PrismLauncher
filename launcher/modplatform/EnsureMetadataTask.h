@@ -2,6 +2,7 @@
 
 #include "ModIndex.h"
 #include "tasks/SequentialTask.h"
+#include "net/NetJob.h"
 
 class Mod;
 class QDir;
@@ -11,7 +12,8 @@ class EnsureMetadataTask : public Task {
     Q_OBJECT
 
    public:
-    EnsureMetadataTask(Mod&, QDir&, bool try_all, ModPlatform::Provider = ModPlatform::Provider::MODRINTH);
+    EnsureMetadataTask(Mod&, QDir, ModPlatform::Provider = ModPlatform::Provider::MODRINTH);
+    EnsureMetadataTask(std::list<Mod>&, QDir, ModPlatform::Provider = ModPlatform::Provider::MODRINTH);
 
    public slots:
     bool abort() override;
@@ -20,22 +22,27 @@ class EnsureMetadataTask : public Task {
 
    private:
     // FIXME: Move to their own namespace
-    void modrinthEnsureMetadata(SequentialTask&, QByteArray&);
-    void flameEnsureMetadata(SequentialTask&, QByteArray&);
+    auto modrinthEnsureMetadata() -> NetJob::Ptr;
+    auto flameEnsureMetadata() -> NetJob::Ptr;
 
     // Helpers
-    void emitReady();
-    void emitFail();
+    void emitReady(Mod&);
+    void emitFail(Mod&);
+
+    auto getHash(Mod&) -> QString;
+
+   private slots:
+    void modrinthCallback(QJsonObject&, Mod&);
+    void flameCallback(QJsonObject&, Mod&);
 
    signals:
-    void metadataReady();
-    void metadataFailed();
+    void metadataReady(Mod&);
+    void metadataFailed(Mod&);
 
    private:
-    Mod& m_mod;
-    QDir& m_index_dir;
+    QHash<QString, Mod> m_mods;
+    QDir m_index_dir;
     ModPlatform::Provider m_provider;
-    bool m_try_all;
 
-    MultipleOptionsTask* m_task_handler = nullptr;
+    NetJob::Ptr m_task_handler;
 };
