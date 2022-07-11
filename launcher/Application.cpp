@@ -1016,7 +1016,7 @@ void Application::performMainStartupAction()
                 qDebug() << "   Launching with account" << m_profileToUse;
             }
 
-            launch(inst, true, nullptr, serverToJoin, accountToUse);
+            launch(inst, true, false, nullptr, serverToJoin, accountToUse);
             return;
         }
     }
@@ -1120,6 +1120,7 @@ void Application::messageReceived(const QByteArray& message)
         launch(
             instance,
             true,
+            false,
             nullptr,
             serverObject,
             accountObject
@@ -1211,6 +1212,7 @@ bool Application::openJsonEditor(const QString &filename)
 bool Application::launch(
         InstancePtr instance,
         bool online,
+        bool demo,
         BaseProfilerFactory *profiler,
         MinecraftServerTargetPtr serverToJoin,
         MinecraftAccountPtr accountToUse
@@ -1234,6 +1236,7 @@ bool Application::launch(
         controller.reset(new LaunchController());
         controller->setInstance(instance);
         controller->setOnline(online);
+        controller->setDemo(demo);
         controller->setProfiler(profiler);
         controller->setServerToJoin(serverToJoin);
         controller->setAccountToUse(accountToUse);
