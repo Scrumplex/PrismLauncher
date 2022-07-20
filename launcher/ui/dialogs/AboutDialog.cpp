@@ -78,12 +78,14 @@ QString getCreditsHtml()
     stream << QString("<p>timoreo %1</p>\n")                    .arg(getGitHub("timoreo22"));
     stream << QString("<p>Ezekiel Smith (ZekeSmith) %1</p>\n")  .arg(getGitHub("ZekeSmith"));
     stream << QString("<p>cozyGalvinism %1</p>\n")              .arg(getGitHub("cozyGalvinism"));
+    stream << QString("<p>flow %1</p>\n")                       .arg(getGitHub("flowln"));
     stream << "<br />\n";
 
     //: %1 is the name of the launcher, determined at build time, e.g. "PolyMC Contributors"
     stream << "<h3>" << QObject::tr("%1 Contributors", "About Credits").arg(BuildConfig.LAUNCHER_NAME) << "</h3>\n";
-    stream << QString("<p>DioEgizio %1</p>\n")                      .arg(getGitHub("DioEgizio"));
-    stream << QString("<p>flowln %1</p>\n")                      .arg(getGitHub("flowln"));
+    stream << QString("<p>DioEgizio %1</p>\n")                  .arg(getGitHub("DioEgizio"));
+    stream << QString("<p>Jamie Mansfield %1</p>\n")            .arg(getGitHub("jamierocks"));
+    stream << QString("<p>Kenneth Chew %1</p>\n")               .arg(getGitHub("kthchew"));
     stream << QString("<p>swirl %1</p>\n")                      .arg(getWebsite("https://swurl.xyz/"));
     stream << "<br />\n";
 
