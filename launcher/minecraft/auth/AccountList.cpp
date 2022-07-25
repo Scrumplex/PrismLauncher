@@ -109,10 +109,7 @@ QStringList AccountList::profileNames() const {
 
 void AccountList::addAccount(const MinecraftAccountPtr account)
 {
-    // NOTE: Do not allow adding something that's already there
-    if(m_accounts.contains(account)) {
-        return;
-    }
+    Q_ASSERT(account);
 
     // hook up notifications for changes in the account
     connect(account.get(), &MinecraftAccount::changed, this, &AccountList::accountChanged);
@@ -141,9 +138,11 @@ void AccountList::addAccount(const MinecraftAccountPtr account)
     // if we don't have this profileId yet, add the account to the end
     int row = m_accounts.count();
     qDebug() << "Inserting account at index" << row;
+
     beginInsertRows(QModelIndex(), row, row);
     m_accounts.append(account);
     endInsertRows();
+
     onListChanged();
 }
 
