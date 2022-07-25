@@ -123,6 +123,8 @@ void AccountList::addAccount(const MinecraftAccountPtr account)
     if(profileId.size()) {
         auto existingAccount = findAccountByProfileId(profileId);
         if(existingAccount != -1) {
+            qDebug() << "Replacing old account with a new one with the same profile ID!";
+
             MinecraftAccountPtr existingAccountPtr = m_accounts[existingAccount];
             m_accounts[existingAccount] = account;
             if(m_defaultAccount == existingAccountPtr) {
@@ -138,6 +140,7 @@ void AccountList::addAccount(const MinecraftAccountPtr account)
 
     // if we don't have this profileId yet, add the account to the end
     int row = m_accounts.count();
+    qDebug() << "Inserting account at index" << row;
     beginInsertRows(QModelIndex(), row, row);
     m_accounts.append(account);
     endInsertRows();
