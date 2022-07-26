@@ -54,3 +54,8 @@ QString DarkTheme::appStyleSheet()
 {
     return "QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }";
 }
+
+bool DarkTheme::isDark()
+{
+    return true;
+}

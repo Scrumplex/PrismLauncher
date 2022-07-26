@@ -18,6 +18,7 @@ public:
     QColor fadeColor() override;
     QString qtTheme() override;
     QStringList searchPaths() override;
+    bool isDark() override;
 
 private: /* data */
     QPalette m_palette;
@@ -27,5 +28,6 @@ private: /* data */
     QString m_name;
     QString m_id;
     QString m_widgets;
+    bool m_dark;
 };
 

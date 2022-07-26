@@ -6,7 +6,7 @@
 const char * themeFile = "theme.json";
 const char * styleFile = "themeStyle.css";
 
-static bool readThemeJson(const QString &path, QPalette &palette, double &fadeAmount, QColor &fadeColor, QString &name, QString &widgets)
+static bool readThemeJson(const QString &path, QPalette &palette, double &fadeAmount, QColor &fadeColor, QString &name, QString &widgets, bool &dark)
 {
     QFileInfo pathInfo(path);
     if(pathInfo.exists() && pathInfo.isFile())
@@ -17,6 +17,7 @@ static bool readThemeJson(const QString &path, QPalette &palette, double &fadeAm
             const QJsonObject root = doc.object();
             name = Json::requireString(root, "name", "Theme name");
             widgets = Json::requireString(root, "widgets", "Qt widget theme");
+            dark = Json::ensureBoolean(root, "dark", false, "Dark color scheme");
             auto colorsRoot = Json::requireObject(root, "colors", "colors object");
             auto readColor = [&](QString colorName) -> QColor
             {
@@ -80,11 +81,12 @@ static bool readThemeJson(const QString &path, QPalette &palette, double &fadeAm
     return true;
 }
 
-static bool writeThemeJson(const QString &path, const QPalette &palette, double fadeAmount, QColor fadeColor, QString name, QString widgets)
+static bool writeThemeJson(const QString &path, const QPalette &palette, double fadeAmount, QColor fadeColor, QString name, QString widgets, bool dark)
 {
     QJsonObject rootObj;
     rootObj.insert("name", name);
     rootObj.insert("widgets", widgets);
+    rootObj.insert("dark", dark);
 
     QJsonObject colorsObj;
     auto insertColor = [&](QPalette::ColorRole role, QString colorName)
@@ -143,7 +145,7 @@ CustomTheme::CustomTheme(ITheme* baseTheme, QString folder)
     auto themeFilePath = FS::PathCombine(path, themeFile);
 
     m_palette = baseTheme->colorScheme();
-    if (!readThemeJson(themeFilePath, m_palette, m_fadeAmount, m_fadeColor, m_name, m_widgets))
+    if (!readThemeJson(themeFilePath, m_palette, m_fadeAmount, m_fadeColor, m_name, m_widgets, m_dark))
     {
         m_name = "Custom";
         m_palette = baseTheme->colorScheme();
@@ -154,7 +156,7 @@ CustomTheme::CustomTheme(ITheme* baseTheme, QString folder)
         QFileInfo info(themeFilePath);
         if(!info.exists())
         {
-            writeThemeJson(themeFilePath, m_palette, m_fadeAmount, m_fadeColor, "Custom", m_widgets);
+            writeThemeJson(themeFilePath, m_palette, m_fadeAmount, m_fadeColor, "Custom", m_widgets, m_dark);
         }
     }
     else
@@ -241,4 +243,9 @@ QColor CustomTheme::fadeColor()
 QString CustomTheme::qtTheme()
 {
     return m_widgets;
+}
+
+bool CustomTheme::isDark()
+{
+    return m_dark;
 }

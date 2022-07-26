@@ -29,6 +29,9 @@ SystemTheme::SystemTheme()
 
 void SystemTheme::apply(bool initial)
 {
+#ifdef Q_OS_WIN
+    WinDarkmode::setDarkWinTitlebar(APPLICATION->m_mainWindow->winId(), isDark());
+#endif
     // if we are applying the system theme as the first theme, just don't touch anything. it's for the better...
     if(initial)
     {
@@ -80,4 +83,10 @@ bool SystemTheme::hasStyleSheet()
 bool SystemTheme::hasColorScheme()
 {
     return true;
+}
+
+bool SystemTheme::isDark()
+{
+    // FIXME: maybe Windows dark mode in the future?
+    return false;
 }

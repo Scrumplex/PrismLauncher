@@ -18,6 +18,7 @@ public:
     QPalette colorScheme() override;
     double fadeAmount() override;
     QColor fadeColor() override;
+    bool isDark() override;
 private:
     QPalette systemPalette;
     QString systemTheme;

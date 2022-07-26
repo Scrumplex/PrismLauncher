@@ -4,6 +4,10 @@
 #include <QDir>
 #include "Application.h"
 
+#ifdef Q_OS_WIN
+#include "ui/WinDarkmode.h"
+#endif
+
 void ITheme::apply(bool)
 {
     QApplication::setStyle(QStyleFactory::create(qtTheme()));
@@ -20,6 +24,10 @@ void ITheme::apply(bool)
         APPLICATION->setStyleSheet(QString());
     }
     QDir::setSearchPaths("theme", searchPaths());
+
+#ifdef Q_OS_WIN
+    WinDarkmode::setDarkWinTitlebar(APPLICATION->m_mainWindow->winId(), isDark());
+#endif
 }
 
 QPalette ITheme::fadeInactive(QPalette in, qreal bias, QColor color)

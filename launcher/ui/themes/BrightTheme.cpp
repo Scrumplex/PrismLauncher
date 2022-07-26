@@ -54,3 +54,7 @@ QString BrightTheme::appStyleSheet()
     return QString();
 }
 
+bool BrightTheme::isDark()
+{
+    return false;
+}
