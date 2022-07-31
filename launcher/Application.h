@@ -42,7 +42,8 @@
 #include <QIcon>
 #include <QDateTime>
 #include <QUrl>
-#include <updater/GoUpdate.h>
+
+#include "updater/ExternalUpdater.h"
 
 #include <BaseInstance.h>
 
@@ -62,7 +63,7 @@ class AccountList;
 class IconList;
 class QNetworkAccessManager;
 class JavaInstallList;
-class UpdateChecker;
+class ExternalUpdater;
 class BaseProfilerFactory;
 class BaseDetachedToolFactory;
 class TranslationsModel;
@@ -122,8 +123,8 @@ public:
 
     void setApplicationTheme(const QString& name, bool initial);
 
-    shared_qobject_ptr<UpdateChecker> updateChecker() {
-        return m_updateChecker;
+    QSharedPointer<ExternalUpdater> updater() {
+        return m_externalUpdater;
     }
 
     std::shared_ptr<TranslationsModel> translations();
@@ -238,7 +239,7 @@ private:
 
     shared_qobject_ptr<QNetworkAccessManager> m_network;
 
-    shared_qobject_ptr<UpdateChecker> m_updateChecker;
+    QSharedPointer<ExternalUpdater> m_externalUpdater;
     shared_qobject_ptr<AccountList> m_accounts;
 
     shared_qobject_ptr<HttpMetaCache> m_metacache;

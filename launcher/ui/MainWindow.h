@@ -48,7 +48,6 @@
 #include "BaseInstance.h"
 #include "minecraft/auth/MinecraftAccount.h"
 #include "net/NetJob.h"
-#include "updater/GoUpdate.h"
 
 class LaunchController;
 class NewsChecker;
@@ -188,11 +187,7 @@ private slots:
 
     void selectionBad();
 
-    void startTask(Task *task);
-
-    void updateAvailable(GoUpdate::Status status);
-
-    void updateNotAvailable();
+	void startTask(Task *task);
 
     void defaultAccountChanged();
 
@@ -201,11 +196,6 @@ private slots:
     void repopulateAccountsMenu();
 
     void updateNewsLabel();
-
-    /*!
-     * Runs the DownloadTask and installs updates.
-     */
-    void downloadUpdates(GoUpdate::Status status);
 
     void konamiTriggered();
 

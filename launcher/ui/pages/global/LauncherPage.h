@@ -91,29 +91,12 @@ slots:
     void on_metadataDisableBtn_clicked();
 
     /*!
-     * Updates the list of update channels in the combo box.
-     */
-    void refreshUpdateChannelList();
-
-    /*!
-     * Updates the channel description label.
-     */
-    void refreshUpdateChannelDesc();
-
-    /*!
      * Updates the font preview
      */
-    void refreshFontPreview();
-
-    void updateChannelSelectionChanged(int index);
+	void refreshFontPreview();
 
 private:
     Ui::LauncherPage *ui;
-
-    /*!
-     * Stores the currently selected update channel.
-     */
-    QString m_currentUpdateChannel;
 
     // default format for the font preview...
     QTextCharFormat *defaultFormat;

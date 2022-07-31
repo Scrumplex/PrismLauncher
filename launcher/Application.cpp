@@ -94,8 +94,6 @@
 
 #include "java/JavaUtils.h"
 
-#include "updater/UpdateChecker.h"
-
 #include "tools/JProfiler.h"
 #include "tools/JVisualVM.h"
 #include "tools/MCEditTool.h"
@@ -152,45 +150,6 @@ void appDebugOutput(QtMsgType type, const QMessageLogContext &context, const QSt
     APPLICATION->logFile->flush();
     QTextStream(stderr) << out.toLocal8Bit();
     fflush(stderr);
-}
-
-QString getIdealPlatform(QString currentPlatform) {
-    auto info = Sys::getKernelInfo();
-    switch(info.kernelType) {
-        case Sys::KernelType::Darwin: {
-            if(info.kernelMajor >= 17) {
-                // macOS 10.13 or newer
-                return "osx64-5.15.2";
-            }
-            else {
-                // macOS 10.12 or older
-                return "osx64";
-            }
-        }
-        case Sys::KernelType::Windows: {
-            // FIXME: 5.15.2 is not stable on Windows, due to a large number of completely unpredictable and hard to reproduce issues
-            break;
-/*
-            if(info.kernelMajor == 6 && info.kernelMinor >= 1) {
-                // Windows 7
-                return "win32-5.15.2";
-            }
-            else if (info.kernelMajor > 6) {
-                // Above Windows 7
-                return "win32-5.15.2";
-            }
-            else {
-                // Below Windows 7
-                return "win32";
-            }
-*/
-        }
-        case Sys::KernelType::Undetermined:
-        case Sys::KernelType::Linux: {
-            break;
-        }
-    }
-    return currentPlatform;
 }
 
 }
@@ -771,11 +730,17 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv)
     // initialize the updater
     if(BuildConfig.UPDATER_ENABLED)
     {
-        auto platform = getIdealPlatform(BuildConfig.BUILD_PLATFORM);
-        auto channelUrl = BuildConfig.UPDATER_BASE + platform + "/channels.json";
-        qDebug() << "Initializing updater with platform: " << platform << " -- " << channelUrl;
-        m_updateChecker.reset(new UpdateChecker(m_network, channelUrl, BuildConfig.VERSION_CHANNEL, BuildConfig.VERSION_BUILD));
-        qDebug() << "<> Updater started.";
+        qDebug() << "Initializing updater...";
+
+#ifdef Q_OS_MAC
+        qDebug() << "Initializing Sparkle updater (macOS)";
+        m_externalUpdater = new MacSparkleUpdater();
+#endif
+
+        if (m_externalUpdater)
+            qDebug() << "<> Updater started.";
+        else
+            qDebug() << "<> No updater available.";
     }
 
     // Instance icons
