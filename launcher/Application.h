@@ -42,6 +42,7 @@
 #include <QIcon>
 #include <QDateTime>
 #include <QUrl>
+#include <QSharedPointer>
 
 #include "updater/ExternalUpdater.h"
 

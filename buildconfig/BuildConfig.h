@@ -66,7 +66,7 @@ class Config {
      */
     QString VERSION_CHANNEL;
 
-    bool UPDATER_ENABLED = false;
+	bool UPDATER_ENABLED = true;
 
     /// A short string identifying this build's platform. For example, "lin64" or "win32".
     QString BUILD_PLATFORM;

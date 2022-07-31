@@ -103,6 +103,7 @@
 
 #include "translations/TranslationsModel.h"
 #include "meta/Index.h"
+#include "updater/DummyUpdater.h"
 
 #include <Commandline.h>
 #include <FileSystem.h>
@@ -110,6 +111,7 @@
 #include <LocalPeer.h>
 
 #include <sys.h>
+
 
 
 #if defined Q_OS_WIN32
@@ -735,6 +737,9 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv)
 #ifdef Q_OS_MAC
         qDebug() << "Initializing Sparkle updater (macOS)";
         m_externalUpdater = new MacSparkleUpdater();
+#else
+		qDebug() << "Initializing Dummy updater";
+		m_externalUpdater = QSharedPointer<ExternalUpdater>(new DummyUpdater());
 #endif
 
         if (m_externalUpdater)

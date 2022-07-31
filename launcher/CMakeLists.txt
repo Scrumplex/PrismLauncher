@@ -161,6 +161,12 @@ if(APPLE)
         updater/MacSparkleUpdater.h
         updater/MacSparkleUpdater.mm
     )
+else()
+    set(UPDATE_SOURCES
+        ${UPDATE_SOURCES}
+        updater/DummyUpdater.h
+        updater/DummyUpdater.cpp
+    )
 endif()
 
 # Backend for the news bar... there's usually no news.
