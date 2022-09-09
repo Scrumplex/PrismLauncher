@@ -115,7 +115,6 @@ ModFolderPage::ModFolderPage(BaseInstance* inst, std::shared_ptr<ModFolderModel>
 void ModFolderPage::runningStateChanged(bool running)
 {
     ExternalResourcesPage::runningStateChanged(running);
-    ui->actionDownloadItem->setEnabled(!running);
     ui->actionUpdateItem->setEnabled(!running);
 }
 
