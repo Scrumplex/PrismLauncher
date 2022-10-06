@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2013-2021 MultiMC Contributors
+# SPDX-License-Identifier: CC0-1.0
+
 cmake_minimum_required(VERSION 3.9.4)
 project(launcher Java)
 find_package(Java 1.7 REQUIRED COMPONENTS Development)

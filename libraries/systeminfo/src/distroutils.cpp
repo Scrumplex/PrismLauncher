@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2017 Nate Coraor
+// SPDX-FileCopyrightText: 2013-2021 MultiMC Contributors
+// SPDX-License-Identifier: MIT AND Apache-2.0
+
 /*
 
 Code has been taken from https://github.com/natefoo/lionshead and loosely

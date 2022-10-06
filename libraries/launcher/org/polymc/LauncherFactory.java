@@ -1,4 +1,6 @@
-// SPDX-License-Identifier: GPL-3.0-only
+// SPDX-FileCopyrightText: 2022 icelimetea, <fr3shtea@outlook.com>
+// SPDX-License-Identifier: GPL-3.0-only WITH Classpath-exception-2.0
+
 /*
  *  PolyMC - Minecraft Launcher
  *  Copyright (C) 2022 icelimetea, <fr3shtea@outlook.com>

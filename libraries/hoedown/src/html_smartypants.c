@@ -1,3 +1,8 @@
+// SPDX-FileCopyrightText: 2008, Natacha Porté
+// SPDX-FileCopyrightText: 2011, Vicent Martí
+// SPDX-FileCopyrightText: 2014, Xavier Mendez, Devin Torres and the Hoedown authors
+// SPDX-License-Identifier: ISC
+
 #include "hoedown/html.h"
 
 #include <string.h>

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2013-2021 MultiMC Contributors
+// SPDX-License-Identifier: Apache-2.0
+
 /*
  * Copyright 2012-2021 MultiMC Contributors
  *

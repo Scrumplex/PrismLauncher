@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: Austin Appleby
+# SPDX-FileCopyrightText: 2022 flow <flowlnlnln@gmail.com>
+# SPDX-License-Identifier: CC0-1.0
+
 cmake_minimum_required(VERSION 3.9.4)
 project(murmur2)
 

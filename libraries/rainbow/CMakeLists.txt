@@ -1,3 +1,10 @@
+# SPDX-FileCopyrightText: 2007 Matthew Woehlke <mw_triad@users.sourceforge.net>
+# SPDX-FileCopyrightText: 2007 Olaf Schmidt <ojschmidt@kde.org>
+# SPDX-FileCopyrightText: 2007 Thomas Zander <zander@kde.org>
+# SPDX-FileCopyrightText: 2007 Zack Rusin <zack@kde.org>
+# SPDX-FileCopyrightText: 2015 Petr Mrazek <peterix@gmail.com>
+# SPDX-License-Identifier: LGPL-2.0-or-later
+
 cmake_minimum_required(VERSION 3.9.4)
 project(rainbow)
 

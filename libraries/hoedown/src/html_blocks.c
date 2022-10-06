@@ -1,3 +1,8 @@
+// SPDX-FileCopyrightText: 2008, Natacha Porté
+// SPDX-FileCopyrightText: 2011, Vicent Martí
+// SPDX-FileCopyrightText: 2014, Xavier Mendez, Devin Torres and the Hoedown authors
+// SPDX-License-Identifier: ISC
+
 /* ANSI-C code produced by gperf version 3.0.3 */
 /* Command-line: gperf -L ANSI-C -N hoedown_find_block_tag -c -C -E -S 1 --ignore-case -m100 html_block_names.gperf  */
 /* Computed positions: -k'1-2' */

@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2008, Natacha Porté
+# SPDX-FileCopyrightText: 2011, Vicent Martí
+# SPDX-FileCopyrightText: 2014, Xavier Mendez, Devin Torres and the Hoedown authors
+# SPDX-License-Identifier: ISC
+
 # hoedown 3.0.2 - https://github.com/hoedown/hoedown/archive/3.0.2.tar.gz
 project(hoedown LANGUAGES C VERSION 3.0.2)
 

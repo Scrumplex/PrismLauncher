@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: Austin Appleby
+// SPDX-FileCopyrightText: 2022 flow <flowlnlnln@gmail.com>
+// SPDX-License-Identifier: CC0-1.0
+
 //-----------------------------------------------------------------------------
 // MurmurHash2 was written by Austin Appleby, and is placed in the public
 // domain. The author hereby disclaims copyright to this source code.
