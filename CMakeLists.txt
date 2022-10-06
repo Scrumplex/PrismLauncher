@@ -305,7 +305,6 @@ add_subdirectory(libraries/systeminfo) # system information library
 add_subdirectory(libraries/hoedown) # markdown parser
 add_subdirectory(libraries/launcher) # java based launcher part for Minecraft
 add_subdirectory(libraries/javacheck) # java compatibility checker
-add_subdirectory(libraries/xz-embedded) # xz compression
 if (FORCE_BUNDLED_QUAZIP)
     message(STATUS "Using bundled QuaZip")
     set(BUILD_SHARED_LIBS 0)  # link statically to avoid conflicts.
