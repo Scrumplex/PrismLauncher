@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: GPL-3.0-only
+// SPDX-License-Identifier: GPL-3.0-only AND Apache-2.0
 /*
  *  PolyMC - Minecraft Launcher
  *  Copyright (C) 2022 dada513 <dada513@protonmail.com>
