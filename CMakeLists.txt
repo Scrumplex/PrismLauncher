@@ -316,7 +316,6 @@ else()
 endif()
 add_subdirectory(libraries/rainbow) # Qt extension for colors
 add_subdirectory(libraries/LocalPeer) # fork of a library from Qt solutions
-add_subdirectory(libraries/classparser) # class parser library
 if(NOT tomlplusplus_FOUND)
     message(STATUS "Using bundled tomlplusplus")
     add_subdirectory(libraries/tomlplusplus) # toml parser
