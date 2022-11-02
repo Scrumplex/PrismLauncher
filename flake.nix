@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Sefa Eyeoglu <contact@scrumplex.net>
+#
+# SPDX-License-Identifier: GPL-3.0-only
+
 {
   description = "A custom launcher for Minecraft that allows you to easily manage multiple installations of Minecraft at once (Fork of MultiMC)";
 

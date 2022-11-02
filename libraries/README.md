@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2022 Sefa Eyeoglu <contact@scrumplex.net>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # Third-party libraries
 
 This folder has third-party or otherwise external libraries needed for other parts to work.

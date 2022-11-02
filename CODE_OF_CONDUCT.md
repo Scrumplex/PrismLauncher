@@ -1,3 +1,10 @@
+<!--
+SPDX-FileCopyrightText: 2014 Coraline Ada Ehmke <coralineada@github.com>
+SPDX-FileCopyrightText: 2022 Sefa Eyeoglu <contact@scrumplex.net>
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
 # Contributor Covenant Code of Conduct
 
 This is a modified version of the Contributor Covenant.

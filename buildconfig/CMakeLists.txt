@@ -1,3 +1,9 @@
+# SPDX-FileCopyrightText: 2022 Sefa Eyeoglu <contact@scrumplex.net>
+# SPDX-FileCopyrightText: 2014-2021 MultiMC Contributors
+#
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: GPL-3.0-only AND Apache-2.0
+
 ######## Configure the file with build properties ########
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/BuildConfig.cpp.in" "${CMAKE_CURRENT_BINARY_DIR}/BuildConfig.cpp")
