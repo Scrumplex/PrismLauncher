@@ -23,6 +23,7 @@ parts:
     plugin: cmake
     build-packages:
       - default-jdk-headless
+      - git
     stage-packages:
       - openjdk-17-jre
       - openjdk-8-jre
